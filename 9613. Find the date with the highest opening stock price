@@ -1,0 +1,10 @@
+'''
+Find the date when Apple's opening stock price reached its maximum
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+aapl_historical_stock_price.head()
+df = aapl_historical_stock_price[aapl_historical_stock_price['open'] == max(aapl_historical_stock_price['open'])]
+df[['date','open']]
