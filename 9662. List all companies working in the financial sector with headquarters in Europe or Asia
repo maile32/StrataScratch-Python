@@ -6,4 +6,5 @@ import pandas as pd
 
 # Start writing code
 forbes_global_2010_2014.head()
-df = forbes_global_2010_2014[ (forbes_global_2010_2014['continent'] == 'Asia') |(forbes_global_2010_2014['continent'] == 'Europe')]
+financials = forbes_global_2010_2014[ forbes_global_2010_2014['sector'] == 'Financials']
+df = financials[ (financials['continent'] == 'Asia') |(financials['continent'] == 'Europe')]
