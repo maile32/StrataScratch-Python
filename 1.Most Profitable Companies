@@ -1,0 +1,13 @@
+'''
+Find the 3 most profitable companies in the entire world.
+Output the result along with the corresponding company name.
+Sort the result based on profits in descending order.
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+forbes_global_2010_2014.head()
+top3_profits = forbes_global_2010_2014.nlargest(n=3, columns=['profits'])
+top3_profits_result = top3_profits[['company','profits']]
+top3_profits_result.sort_values(by='profits', ascending = False)
