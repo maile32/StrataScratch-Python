@@ -1,0 +1,13 @@
+'''
+How many accounts have performed a login in the year 2016?
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+product_logins.head()
+import datetime
+product_logins['year'] = product_logins['login_date'].dt.year
+df = product_logins[product_logins['year'] == 2016]
+no_acc = pd.unique(df['account_id'])
+len(no_acc)
