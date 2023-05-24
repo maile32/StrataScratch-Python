@@ -1,0 +1,10 @@
+'''
+Find the total assets of the energy sector.
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+forbes_global_2010_2014.head()
+df = forbes_global_2010_2014[forbes_global_2010_2014['sector'] == 'Energy']
+df.groupby('sector') ['assets'].sum().reset_index()
