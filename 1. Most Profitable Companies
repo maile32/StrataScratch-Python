@@ -10,4 +10,4 @@ import pandas as pd
 forbes_global_2010_2014.head()
 top3_profits = forbes_global_2010_2014.nlargest(n=3, columns=['profits'])
 top3_profits_result = top3_profits[['company','profits']]
-top3_profits_result.sort_values(by='profits', ascending = False)
+top3_profits_result.sort_values('profits', ascending = False)
