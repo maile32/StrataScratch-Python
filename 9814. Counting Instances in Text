@@ -1,0 +1,14 @@
+'''
+Find the number of times the words 'bull' and 'bear' occur in the contents.
+We're counting the number of times the words occur so words like 'bullish' should not be included in our count.
+Output the word 'bull' and 'bear' along with the corresponding number of occurrences.
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+google_file_store.head()
+google_file_store['bull'] = google_file_store['contents'].str.count('bull')
+google_file_store['bear'] = google_file_store['contents'].str.count('bear')
+df = {'word':['bull','bear'], 'occurance' : [sum(google_file_store['bull']), sum(google_file_store['bear'])]}
+df = pd.DataFrame.from_dict(df)
