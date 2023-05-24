@@ -1,0 +1,15 @@
+'''
+Find all industries with a positive average profit. For those industries extract their lowest sale.
+Output the industry along with the corresponding lowest sale and average profit.
+Sort the output based on the lowest sales in ascending order.
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+forbes_global_2010_2014.head()
+positive_profits = forbes_global_2010_2014.groupby('industry') ['profits'].mean().reset_index()
+positive_profits = positive_profits[ positive_profits['profits'] > 0 ]
+lowest_sales = forbes_global_2010_2014[ forbes_global_2010_2014['industry'].isin(positive_profits['industry']) ]
+lowest_sales = lowest_sales.groupby('industry') ['sales'].min().reset_index()
+lowest_sales.sort_values('sales', ascending = True)
