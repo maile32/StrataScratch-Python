@@ -1,0 +1,10 @@
+'''
+Find the number of USA companies that are on the list.
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+forbes_global_2010_2014.head()
+df = forbes_global_2010_2014[forbes_global_2010_2014['country'] == 'United States']
+df.groupby(df['country']) ['company'].count().reset_index()
