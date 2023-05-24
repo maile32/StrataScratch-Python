@@ -9,6 +9,11 @@ import pandas as pd
 # Start writing code
 aapl_historical_stock_price.head()
 aapl_historical_stock_price['difference'] = aapl_historical_stock_price['close'] - aapl_historical_stock_price['open']
+
+import datetime
+aapl_historical_stock_price['month'] = aapl_historical_stock_price['date'].dt.month
+aapl_historical_stock_price['year'] = aapl_historical_stock_price['date'].dt.year
+
 df = aapl_historical_stock_price.groupby(['year','month']) .aggregate({'difference': 'max', 'open' : 'mean', 'close': 'mean'}) .reset_index()
 result = df.merge(aapl_historical_stock_price, how = 'left', on = ['year','month','difference'])
 result[['date', 'difference', 'open_x', 'close_x']]
