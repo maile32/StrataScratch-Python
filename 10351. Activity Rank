@@ -1,0 +1,19 @@
+'''
+Find the email activity rank for each user.\
+Email activity rank is defined by the total number of emails sent.
+The user with the highest number of emails sent will have a rank of 1, and so on.
+Output the user, total emails, and their activity rank.
+Order records by the total emails in descending order. Sort users with the same number of emails in alphabetical order.
+In your rankings, return a unique value (i.e., a unique rank) even if multiple users have the same number of emails.
+For tie breaker use alphabetical order of the user usernames.
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+google_gmail_emails.head()
+df = google_gmail_emails.groupby('from_user') ['id'].count().reset_index()
+df = df.rename(columns = {'id':'emails_sent'})
+df = df.sort_values(['emails_sent','from_user'], ascending = [False, True]).reset_index()
+df['rank'] = df.index+1
+df[['from_user','emails_sent','rank']]
