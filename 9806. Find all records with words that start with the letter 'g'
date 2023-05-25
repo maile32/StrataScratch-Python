@@ -1,0 +1,18 @@
+'''
+Find all records with words that start with the letter 'g'.
+
+Output words1 and words2 if any of them satisfies the condition.
+'''
+# Import your libraries
+import pandas as pd
+import re
+
+# Start writing code
+google_word_lists.head()
+df = pd.DataFrame()
+for index, row in google_word_lists.iterrows():
+    x = re.search('(^g|,g)',row['words1'])
+    y = re.search('(^g|,g)',row['words2'])
+    if x or y:
+        df = df.append(row)
+df
