@@ -1,0 +1,15 @@
+'''
+Find the number of occurrences of custom email labels for each user receiving an email.
+Output the receiver user id, label, and the corresponding number of occurrences.
+'''
+# Import your libraries
+import pandas as pd
+import re
+
+# Start writing code
+google_gmail_emails.head()
+google_gmail_labels['custom'] = google_gmail_labels['label'].apply(lambda x: re.search('^Custom',x))
+custom_email = google_gmail_labels[google_gmail_labels['custom'].isna() == False ]
+df = google_gmail_emails.merge(custom_email, left_on = 'id', right_on = 'email_id')
+output = df.groupby(['from_user','label']) ['custom'].count().reset_index()
+output = output.rename(columns = {'custom':'number_of_email'})
