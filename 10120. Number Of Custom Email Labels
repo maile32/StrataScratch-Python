@@ -9,7 +9,7 @@ import re
 # Start writing code
 google_gmail_emails.head()
 google_gmail_labels['custom'] = google_gmail_labels['label'].apply(lambda x: re.search('^Custom',x))
-custom_email = google_gmail_labels[google_gmail_labels['custom'].isna() == False ]
+custom_email = google_gmail_labels[google_gmail_labels['custom'].isull() == False ]
 df = google_gmail_emails.merge(custom_email, left_on = 'id', right_on = 'email_id')
 output = df.groupby(['from_user','label']) ['custom'].count().reset_index()
 output = output.rename(columns = {'custom':'number_of_email'})
