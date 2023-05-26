@@ -1,0 +1,18 @@
+'''
+Find the number of times each word appears in drafts.
+Output the word along with the corresponding number of occurrences.
+'''
+# Import your libraries
+import pandas as pd
+from collections import Counter
+
+# Start writing code
+google_file_store.head()
+draft_list = []
+words = []
+google_file_store['contents'].apply(lambda x: draft_list.append(x))
+for draft in draft_list:
+    word_list = draft.split()
+    for word in word_list:
+        words.append(word)
+word_count = Counter(words)
