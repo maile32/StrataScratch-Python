@@ -1,0 +1,13 @@
+'''
+The data engineering team at YouTube want to clean the dataset user_flags.
+In particular, they want to examine rows that have missing values in more than one column. List these rows.
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+user_flags.head()
+null_table = user_flags.isnull()
+null_table['sum'] = null_table.select_dtypes(include = 'bool').sum(axis = 1)
+df = user_flags.merge(null_table, left_on = user_flags.index, right_on = null_table.index)
+missing_rows = df[df['sum'] > 1]
