@@ -1,0 +1,15 @@
+'''
+For each video, find how many unique users flagged it.
+A unique user can be identified using the combination of their first name and last name.
+Do not consider rows in which there is no flag ID.
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+user_flags.head()
+user_flags = user_flags[user_flags['flag_id'].isna() == False].reset_index()
+user_flags['user_name'] = user_flags['user_firstname'].map(str) + ' ' + user_flags['user_lastname'].map(str)
+video_flag = user_flags.groupby('video_id') ['user_name'].nunique().reset_index()
+video_flag = video_flag.rename(columns = {'user_name':'unique_user_flag'})
+video_flag
