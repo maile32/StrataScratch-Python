@@ -1,0 +1,18 @@
+'''
+After a new user creates an account and starts watching videos, the user ID, video ID, and date watched are captured in the database.
+Find the top 3 videos most users have watched as their first 3 videos.
+Output the video ID and the number of times it has been watched as the users' first 3 videos.
+In the event of a tie, output all the videos in the top 3 that users watched as their first 3 videos.
+'''
+# Import your libraries
+import pandas as pd
+
+# Finds the first 3 videos that each user watched
+videos_watched.head()
+videos_watched['rank'] = videos_watched.groupby('user_id') ['watched_at'].rank()
+top_3 = videos_watched[videos_watched['rank'].isin([1,2,3])]
+
+#Finds the top 3 videos that was most users watched as their first 3 videos
+most_watched = videos_watched.groupby('video_id') ['rank'].count().reset_index()
+most_watched['most_watched_rank'] = most_watched['rank'].rank(method = 'min', ascending = False)
+most_watched[most_watched['most_watched_rank'] < 4]
