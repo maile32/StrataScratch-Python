@@ -1,0 +1,27 @@
+'''
+The ideal time between when a customer places an order and when the order is delivered is below or equal to 45 minutes.
+You have been tasked with evaluating delivery driver performance by calculating the average order value for each delivery driver who has delivered at least once within this 45-minute period.
+Your output should contain the driver ID along with their corresponding average order value.
+'''
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+delivery_details.head()
+
+#Date time transformation
+delivery_details['delivered_to_consumer_datetime'] = pd.to_datetime(delivery_details['delivered_to_consumer_datetime'])
+delivery_details['customer_placed_order_datetime'] = pd.to_datetime(delivery_details['customer_placed_order_datetime'])
+delivery_details['delivery_time'] = delivery_details['delivered_to_consumer_datetime'] -  delivery_details['customer_placed_order_datetime']
+delivery_details['delivery_time'] = delivery_details.apply(lambda x: x['delivery_time'].total_seconds(), axis = 1)
+delivery_details['delivery_time'] = delivery_details['delivery_time']/60
+
+#Filter drivers with at least 1 on-time delivery
+delivery_details['qualified_driver'] = delivery_details.apply(lambda x: 1 if x['delivery_time'] <45 else 0, axis =1)
+qualified_driver = delivery_details[delivery_details['qualified_driver'] == 1]
+qualified_driver = qualified_driver.filter(items =['driver_id']).drop_duplicates()
+
+#Merge with original delivery_details dataframe to calculate mean order value
+delivery_details.merge(qualified_driver,how = 'left', left_on = delivery_details['driver_id'], right_on = qualified_driver['driver_id'])
+driver_performance = delivery_details[delivery_details['qualified_driver'] == 1]
+driver_performance.groupby(['driver_id']) ['order_total'].mean().reset_index()
