@@ -1,0 +1,15 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+delivery_details.head()
+delivery_details['net_order_total'] = delivery_details['order_total'] + delivery_details['tip_amount'] - delivery_details['discount_amount']- delivery_details['refunded_amount']
+
+#Add rush hour start and end
+delivery_details['rush_start'] = delivery_details['customer_placed_order_datetime'].apply(lambda x:  pd.Timestamp(x.year, x.month, x.day, 15))
+delivery_details['rush_end'] = delivery_details['customer_placed_order_datetime'].apply(lambda x:  pd.Timestamp(x.year, x.month, x.day, 17))
+
+#Group orders within the rush hours
+avg_order = delivery_details[(delivery_details['customer_placed_order_datetime']>= delivery_details['rush_start']) & (delivery_details['customer_placed_order_datetime']<= delivery_details['rush_end'])]
+avg_order['hour'] = avg_order.apply(lambda x: x['customer_placed_order_datetime'].hour, axis = 1)
+avg_order.groupby('hour') ['net_order_total'].mean().reset_index()
