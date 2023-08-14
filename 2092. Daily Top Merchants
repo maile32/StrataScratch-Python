@@ -1,0 +1,18 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+order_details.head()
+#Convert datetime to YYY-MM-DD
+order_details['order_day'] = order_details['order_timestamp'].apply(lambda x: x.strftime('%Y-%m-%d'))
+
+#Merge to find merchant name
+merged_order = order_details.merge(merchant_details, how = 'left', left_on ='merchant_id', right_on = 'id')
+
+#Group and rank by merchant name and date
+merged_order = merged_order.groupby(['name','order_day']) ['id_x'].count().reset_index()
+grouped_order = merged_order.groupby(['order_day']) ['id_x'].rank(method="dense",ascending = False).reset_index()
+merged_order = merged_order.merge(grouped_order, how = 'left', left_on = merged_order.index, right_on = grouped_order.index)
+merged_order = merged_order[['name', 'order_day','id_x_y']]
+ranked_order = merged_order[merged_order['id_x_y'] <= 3]
+ranked_order.sort_values(['order_day','id_x_y'], ascending = [True, True])
