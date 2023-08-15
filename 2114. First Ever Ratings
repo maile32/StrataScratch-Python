@@ -1,0 +1,7 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+delivery_orders.head()
+first_delivery = delivery_orders.sort_values('actual_delivery_time').groupby('driver_id').first().reset_index()
+first_delivery[first_delivery['delivery_rating'] == 0] ['delivery_rating'].count() / first_delivery['delivery_rating'].count()
