@@ -1,0 +1,20 @@
+# Import your libraries
+import pandas as pd
+import numpy as np
+
+# Start writing code
+delivery_orders
+
+#Find all late deivery and deal with missing values
+delivery_orders['delivery_time_diff'] = delivery_orders['actual_delivery_time'] - delivery_orders['predicted_delivery_time']
+delivery_orders['delivery_time_diff'] = delivery_orders.apply(lambda x: x['delivery_time_diff'].total_seconds()/60 if x['delivery_time_diff'] is not pd.NaT else np.NaN, axis = 1 )
+delivery_orders['late_delivery'] = delivery_orders.apply(lambda x: 1 if x['delivery_time_diff'] > 20 else np.NaN, axis = 1) 
+
+#Extract YYYY-MM
+delivery_orders['month'] = delivery_orders.apply(lambda x :  x['predicted_delivery_time'].strftime('%Y-%m'), axis = 1)
+
+#Calculate percentage of extremely late delivery
+monthly_orders = delivery_orders.groupby('month') ['late_delivery','delivery_id'].count().reset_index()
+monthly_orders['late_delivery_ratio'] = monthly_orders['late_delivery']/monthly_orders['delivery_id']
+monthly_orders
+
