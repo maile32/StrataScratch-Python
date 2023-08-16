@@ -1,0 +1,7 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+olympics_athletes_events.head()
+sport_history = olympics_athletes_events.groupby('sport').agg({'year':['min','max','count']}).reset_index()
+sport_history = sport_history.sort_values(by = ('year', 'min'), ascending = False)
