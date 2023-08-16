@@ -1,0 +1,7 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+olympics_athletes_events.head()
+athlete = olympics_athletes_events[olympics_athletes_events['medal'].notnull() & olympics_athletes_events['team'].str.contains( 'Denmark')]
+athlete['name'].unique()
